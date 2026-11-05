@@ -1,0 +1,11 @@
+# Kaggle images already ship numpy, pandas, matplotlib, opencv, scikit-learn, torch, torchvision.
+numpy
+pandas
+matplotlib
+opencv-python-headless
+scikit-learn
+torch>=2.1
+torchvision>=0.16
+faster-coco-eval>=1.6
+pycocotools
+ultralytics==8.3.*
