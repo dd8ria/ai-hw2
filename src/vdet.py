@@ -84,6 +84,12 @@ def load_split(root: Path, split: str) -> tuple[pd.DataFrame, pd.DataFrame]:
     anns[["x", "y", "w", "h"]] = xywh
     anns["iscrowd"] = anns.get("iscrowd", 0).fillna(0).astype(int)
     anns["cls"] = np.where(anns["iscrowd"] == 1, -1, anns["category_id"] - 1).astype(int)
+    # The organisers' json repeats every ignored region once per class (8 copies, one per
+    # category_id) so that per-category COCO matching skips it. Keep one class-agnostic copy;
+    # coco_evaluate re-creates the per-class copies itself.
+    crowd = anns["iscrowd"] == 1
+    dup = crowd & anns.duplicated(subset=["image_id", "x", "y", "w", "h", "iscrowd"])
+    anns = anns[~dup].reset_index(drop=True)
     anns = anns.drop(columns=["bbox", "segmentation"], errors="ignore")
     anns = anns.merge(
         imgs[["coco_id", "key", "clip", "clip_uid", "frame_idx", "width", "height", "split"]],
