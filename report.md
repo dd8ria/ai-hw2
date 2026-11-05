@@ -1,8 +1,8 @@
 ---
 title: Homework 2 -- Multiple Object Video Detection on VisDrone-VID
-author: Дарина <прізвище>, Таня <прізвище>
+author: Дарина Ничипорук, Таня Мороз
 course: Artificial Intelligence · UCU
-date: 2026-11-XX
+date: 2026-11-05
 ---
 
 <!-- Target: ~1500 words. Replace every TODO with numbers from the notebooks. Each table names the notebook it comes from. -->
