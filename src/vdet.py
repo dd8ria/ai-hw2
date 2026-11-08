@@ -334,7 +334,14 @@ def to_prediction_string(df: pd.DataFrame, max_dets: int = MAX_DETS) -> str:
 def write_submission(preds: pd.DataFrame, test_csv: str | Path, path: str | Path) -> pd.DataFrame:
     """preds columns: image_id, cls, score, x, y, w, h. Missing images get an empty string."""
     test = pd.read_csv(test_csv)
-    strings = {k: to_prediction_string(g) for k, g in preds.groupby("image_id")}
+    # clip boxes to the image and drop degenerate ones (a box at the frame edge can have
+    # sub-pixel width, which becomes 0.0 after rounding and is rejected by the checker)
+    p = preds.merge(test[["image_id", "width", "height"]], on="image_id", how="inner")
+    x1 = p.x.clip(0, p.width - 1); y1 = p.y.clip(0, p.height - 1)
+    x2 = (p.x + p.w).clip(0, p.width); y2 = (p.y + p.h).clip(0, p.height)
+    p = p.assign(x=x1, y=y1, w=x2 - x1, h=y2 - y1)
+    p = p[(p.w >= 1) & (p.h >= 1)]
+    strings = {k: to_prediction_string(g) for k, g in p.groupby("image_id")}
     sub = pd.DataFrame({"image_id": test["image_id"],
                         "PredictionString": [strings.get(k, "") for k in test["image_id"]]})
     sub.to_csv(path, index=False)
