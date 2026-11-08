@@ -1,0 +1,18 @@
+{
+ "arch": "fasterrcnn_v2",
+ "imgsz": 1280,
+ "epochs": 12,
+ "batch": 4,
+ "lr": 0.01,
+ "sched": "step",
+ "box_loss": "smooth_l1",
+ "seed": 42,
+ "kwargs": {
+  "rpn_pre_nms_top_n_train": 4000,
+  "rpn_post_nms_top_n_train": 3000,
+  "rpn_pre_nms_top_n_test": 4000,
+  "rpn_post_nms_top_n_test": 3000,
+  "box_batch_size_per_image": 1024,
+  "box_positive_fraction": 0.5
+ }
+}

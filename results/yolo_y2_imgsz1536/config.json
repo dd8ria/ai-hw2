@@ -1,0 +1,8 @@
+{
+ "model": "yolov8s-p2.yaml",
+ "imgsz": 1536,
+ "epochs": 12,
+ "batch": 4,
+ "seed": 42,
+ "weights": "yolov8s.pt"
+}

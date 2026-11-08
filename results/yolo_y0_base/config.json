@@ -1,0 +1,7 @@
+{
+ "model": "yolov8s.pt",
+ "imgsz": 1280,
+ "epochs": 12,
+ "batch": 8,
+ "seed": 42
+}

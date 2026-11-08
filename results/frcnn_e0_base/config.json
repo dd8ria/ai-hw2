@@ -1,0 +1,10 @@
+{
+ "arch": "fasterrcnn_v2",
+ "imgsz": 1280,
+ "epochs": 12,
+ "batch": 4,
+ "lr": 0.01,
+ "sched": "step",
+ "box_loss": "smooth_l1",
+ "seed": 42
+}
