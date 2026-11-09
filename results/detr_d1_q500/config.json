@@ -1,0 +1,14 @@
+{
+ "family": "rtdetr",
+ "model": "rtdetr-l.pt",
+ "imgsz": 1280,
+ "epochs": 12,
+ "batch": 4,
+ "seed": 42,
+ "train_args": {
+  "lr0": 0.0001,
+  "optimizer": "AdamW",
+  "warmup_epochs": 1
+ },
+ "num_queries": 500
+}
